@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
 int main() {
     int e = 0, v = 0, dir = 0, wei = 0;
     printf("Enter edges and verses of graph:\nV=");
@@ -37,21 +35,24 @@ int main() {
     };
     if(ans1){fprintf(gfile, "digraph graphname {\n");}
     else{fprintf(gfile, "graph graphname {\n");}
+    for(int i=0;i<v;++i){
+        fprintf(gfile,"\t%d;\n",i);
+    }
     for (int i = 0; i < e; ++i){
-        int first = -1, second = 0;
+        int first = -1, second = -1;
         for (int j = 0; j < v; ++j){
             if (matr[j][i]){
                 if (ans1){
                     if(matr[j][i] == -1){
-                        first = j;
-                    } else {
                         second = j;
+                    } else {
+                        first = j;
                     }
                 } else {
                     if (first + 1){
                         second = j;
                     } else {
-                        first  = j;
+                        first = j;
                     }
                 }
             }
@@ -62,7 +63,10 @@ int main() {
         } else {
             fputc('-', gfile);
         }
-        fprintf(gfile," %d", second);
+        if (second != -1)
+            fprintf(gfile," %d", second);
+        else
+            fprintf(gfile," %d", first);
         if(ans2){
             fprintf(gfile, "[label=%d]", edge[i]);
         }
@@ -76,8 +80,6 @@ int main() {
     }else{
         printf("\nGraph is not connected\n");
     }
-    system("");
     system("dot -Tpng gfile.dot -o graph.png");
-    system("graph.png");
     return 0;
 }
