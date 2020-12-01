@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main() {
-    int e = 0, v = 0, dir = 0, wei = 0;
+    int e = 0, v = 0;
     printf("Enter edges and verses of graph:\nV=");
     scanf("%d", &v);
     printf("\nE=");
